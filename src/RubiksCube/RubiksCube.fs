@@ -28,6 +28,9 @@ module Main =
 
     let faceletDim = 40.
     let faceletStrk = faceletDim * 0.05
+    let margin = 10.
+    let stageWidth  = (faceletDim * 3. * 4.) + (margin * 3.) + (faceletStrk * 4. * 3.) + 50.
+    let stageHeight = (faceletDim * 3. * 3.) + (margin * 2.) + (faceletStrk * 3. * 4.) + 50.
 
     let makeFacelet color =
         Rectangle.create [
@@ -42,6 +45,9 @@ module Main =
         WrapPanel.create [
             WrapPanel.width (faceletDim * 3. + faceletStrk * 3.)
             WrapPanel.height (faceletDim * 3. + faceletStrk * 3.)
+            WrapPanel.margin margin
+            WrapPanel.horizontalAlignment HorizontalAlignment.Stretch
+            WrapPanel.verticalAlignment VerticalAlignment.Stretch
             WrapPanel.children [
                 makeFacelet(face.Item(0).Item(0))
                 makeFacelet(face.Item(0).Item(1))
@@ -66,6 +72,7 @@ module Main =
                 DockPanel.children [
                     DockPanel.create [
                         DockPanel.dock Dock.Right
+                        DockPanel.verticalAlignment VerticalAlignment.Center
                         DockPanel.children [
                             makeButton(F, cube, "F", Dock.Top)
                             makeButton(B, cube, "B", Dock.Top)
@@ -78,6 +85,7 @@ module Main =
                      
                     DockPanel.create [
                         DockPanel.dock Dock.Right
+                        DockPanel.verticalAlignment VerticalAlignment.Center
                         DockPanel.children [
                             makeButton(F2, cube, "F2", Dock.Top)
                             makeButton(B2, cube, "B2", Dock.Top)
@@ -89,6 +97,7 @@ module Main =
                     ]
 
                     DockPanel.create [
+                        DockPanel.verticalAlignment VerticalAlignment.Center
                         DockPanel.children [
                             makeButton(F', cube, "F'", Dock.Top)
                             makeButton(B', cube, "B'", Dock.Top)
@@ -99,16 +108,29 @@ module Main =
                         ]
                     ]
 
-                    DockPanel.create [
-                        DockPanel.children [
-                            makeFaceBorder(cube.Current.u, Some(Dock.Top))
-                            makeFaceBorder(cube.Current.d, Some(Dock.Bottom))
-                            makeFaceBorder(cube.Current.l, Some(Dock.Left))
-                            makeFaceBorder(cube.Current.r, Some(Dock.Right))
-                            makeFaceBorder(cube.Current.f, None)
-                        ]
+                    Border.create [
+                        Border.borderBrush "white"
+                        Border.borderThickness faceletStrk
+                        Border.width stageWidth
+                        Border.height stageHeight
+                        Border.height 500
+                        Border.child (
+                            DockPanel.create [
+                                DockPanel.children [ 
+                                    DockPanel.create [
+                                        DockPanel.children [
+                                            makeFaceBorder(cube.Current.u, Some(Dock.Top))
+                                            makeFaceBorder(cube.Current.d, Some(Dock.Bottom))
+                                            makeFaceBorder(cube.Current.l, Some(Dock.Left))
+                                            makeFaceBorder(cube.Current.r, Some(Dock.Right))
+                                            makeFaceBorder(cube.Current.f, None)
+                                        ]
+                                    ]
+                                    makeFaceBorder(cube.Current.b, None)
+                                ]
+                            ]
+                        )
                     ]
-                    makeFaceBorder(cube.Current.b, None)
                 ]
             ]
         )
