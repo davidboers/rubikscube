@@ -165,6 +165,16 @@ let defaultCube: Cube = { f = newFace(Red)    // Front
                         ; r = newFace(Blue)   // Right
                         }
 
+let solved (cube: Cube) =
+    [ solved cube.f Red
+    ; solved cube.b Orange
+    ; solved cube.u White
+    ; solved cube.d Yellow
+    ; solved cube.l Green
+    ; solved cube.r Blue
+    ]
+    |> List.sum
+
 let presentCube(cube: Cube) =
     colorprintfn "       $%A[%s] $%A[%s] $%A[%s]" 
                                         (consoleColor(cube.u.Item(0).Item(0))) (colorChar(cube.u.Item(0).Item(0))) // White

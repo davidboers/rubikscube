@@ -5,7 +5,7 @@ open RubiksCube.Color
 type Face = List<List<Color>>
 type FaceMask = List<List<Color Option>>
 
-let mapFace (prec: (Color -> 'b), face: Face): 'b list =
+let mapFace (prec: (Color -> 'b)) (face: Face): 'b list =
     List.concat <| List.map (List.map prec) face
 
 let getMask(face: Face, set) =
@@ -74,6 +74,11 @@ let newFace color =
     ; [ color; color; color ]
     ; [ color; color; color ]
     ]
+
+let solved face color =
+    mapFace (fun c -> c = color) face
+    |> List.filter id
+    |> List.length
 
 let bottomRow = [(2, 0); (2, 1); (2, 2)]
 let topRow = [(0, 0); (0, 1); (0, 2)]
