@@ -271,10 +271,10 @@ module Rubiks =
         | 16 -> L'
         | 17 -> R'
 
-    let rec scramble (rnd: Random) (cube: Cube) =
-        match rnd.Next(1, 50) with
+    let rec scramble n (rnd: Random) (cube: Cube) =
+        match n with
         | 1 -> randMove rnd cube
-        | _ -> scramble rnd <| randMove rnd cube
+        | _ -> scramble (n-1) rnd <| randMove rnd cube
 
     let defaultCube: Cube = { f = newFace(Red)    // Front
                             ; b = newFace(Orange) // Back
@@ -417,7 +417,7 @@ module Main =
 
     let view () =
         Component(fun ctx ->
-            let cube = ctx.useState(Rubiks.scramble (new Random()) Rubiks.defaultCube)
+            let cube = ctx.useState(Rubiks.scramble 25 (new Random()) Rubiks.defaultCube)
 
             DockPanel.create [
                 DockPanel.children [
