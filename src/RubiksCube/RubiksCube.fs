@@ -65,7 +65,7 @@ module Main =
         ]
 
     let progress cube =
-        (string <| Cube.solved cube) + " / " + (string <| 9. * 4.)
+        (string <| Cube.solved cube) + " / " + (string <| 9. * 6.)
 
     let view () =
         Component(fun ctx ->
