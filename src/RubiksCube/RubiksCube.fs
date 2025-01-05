@@ -64,12 +64,29 @@ module Main =
             | None   -> WrapPanel.name "Idk"
         ]
 
+    let progress cube =
+        (string <| Cube.solved cube) + " / " + (string <| 9. * 4.)
+
     let view () =
         Component(fun ctx ->
             let cube = ctx.useState(scramble 25 (new Random()) defaultCube)
 
             DockPanel.create [
                 DockPanel.children [
+                    TextBlock.create [
+                        TextBlock.text <| progress cube.Current
+                        TextBlock.dock Dock.Top
+                        TextBlock.horizontalAlignment HorizontalAlignment.Center
+                        TextBlock.fontSize 48
+                    ]
+
+                    Button.create [
+                        Button.onClick (fun _ -> cube.Set(scramble 25 (new Random()) cube.Current))
+                        Button.content "Scramble"
+                        TextBlock.horizontalAlignment HorizontalAlignment.Center
+                        Button.dock Dock.Top
+                    ]
+
                     DockPanel.create [
                         DockPanel.dock Dock.Right
                         DockPanel.verticalAlignment VerticalAlignment.Center
