@@ -156,6 +156,7 @@ type MainWindow() =
     inherit HostWindow()
     do
         base.Title <- "Rubics Cube"
+        base.Icon <- WindowIcon(System.IO.Path.Combine("Assets", "Icons", "icon.ico"))
         base.Content <- Main.view ()
 
 module Program =
