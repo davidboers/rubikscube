@@ -26,12 +26,12 @@ let F c =
     }
 
 let B c = 
-    { c with  // Not Working
+    { c with
         b = rotClockwise c.b
-        r = rotRowClockwise c.d c.r topRow
-        d = rotRowClockwise c.l c.d rightRow
-        l = rotRowClockwise c.u c.l bottomRow
-        u = rotRowClockwise c.r c.u leftRow
+        r = rotRowClockwise c.u c.r topRow
+        d = rotRowClockwise c.r c.d rightRow
+        l = rotRowClockwise c.d c.l bottomRow
+        u = rotRowClockwise c.l c.u leftRow
     }
 
 let U c =
@@ -87,12 +87,12 @@ let F' c =
     }
 
 let B' c =
-    { c with // Not Working
+    { c with
         b = rotCounterClockwise c.b
-        l = rotRowCounterClockwise c.d c.l topRow
-        d = rotRowCounterClockwise c.r c.d leftRow
-        r = rotRowCounterClockwise c.u c.r bottomRow
-        u = rotRowCounterClockwise c.l c.u rightRow
+        l = rotRowCounterClockwise c.u c.l topRow
+        d = rotRowCounterClockwise c.l c.d leftRow
+        r = rotRowCounterClockwise c.d c.r bottomRow
+        u = rotRowCounterClockwise c.r c.u rightRow
     }
 
 let U' c =
